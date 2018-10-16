@@ -1,4 +1,4 @@
-package sandem.java_1.lesson7;
+package sandem.java1.lesson7;
 
 import java.util.Random;
 

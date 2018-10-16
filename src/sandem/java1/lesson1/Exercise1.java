@@ -1,3 +1,5 @@
+package sandem.java1.lesson1;
+
 /**
  * Пустой метод main, простая программа
  * @author A.Demidenkov

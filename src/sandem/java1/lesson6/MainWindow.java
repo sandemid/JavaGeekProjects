@@ -1,4 +1,4 @@
-package sandem.java_1.lesson6;
+package sandem.java1.lesson6;
 
 import javax.swing.*;
 import java.awt.*;

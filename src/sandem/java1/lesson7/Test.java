@@ -1,6 +1,6 @@
-package sandem.java_1.lesson7;
+package sandem.java1.lesson7;
 
-public class qwer {
+public class Test {
 
     public static void main(String[] args) {
         String s1 = "Java";

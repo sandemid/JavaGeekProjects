@@ -1,4 +1,6 @@
-package sandem.java_1.lesson5;
+package sandem.java1.lesson5;
+
+import sandem.java1.lesson5.Bowl;
 
 import java.util.Random;
 

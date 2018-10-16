@@ -1,3 +1,5 @@
+package sandem.java1.lesson2;
+
 import java.util.Scanner;
 
 /**

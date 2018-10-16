@@ -1,4 +1,4 @@
-package sandem.java_1.lesson4_1;
+package sandem.java1.lesson4;
 
 /**
  * Главный класс. Задание 4

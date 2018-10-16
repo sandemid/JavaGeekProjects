@@ -1,6 +1,6 @@
-package sandem.java_1.lesson5;
+package sandem.java1.lesson5;
 
-import sandem.java_1.lesson4_2.Animal;
+import sandem.java1.lesson4.Animal;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

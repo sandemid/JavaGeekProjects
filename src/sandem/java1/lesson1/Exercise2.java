@@ -1,3 +1,5 @@
+package sandem.java1.lesson1;
+
 /**
  * Инициализация переменных всех типов
  * @author A.Demidenkov
