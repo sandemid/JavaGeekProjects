@@ -12,5 +12,6 @@ public interface ArrayInterface {
     public int getElement(int index);
     public int getIndex (int value);
     public int[] getArray();
+    public ArrayInterface copy();
 
 }

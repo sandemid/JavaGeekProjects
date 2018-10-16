@@ -1,5 +1,7 @@
 package sandem.java2.lesson2;
 
+import java.util.Arrays;
+
 public class MyArray implements ArrayInterface {
 
     private int[] array;
@@ -14,6 +16,11 @@ public class MyArray implements ArrayInterface {
             this.array = new int[maxSize];
         }
         this.size = 0;
+    }
+
+    public MyArray (int[] array, int size){
+        this.array = array;
+        this.size = size;
     }
 
     @Override
@@ -82,15 +89,15 @@ public class MyArray implements ArrayInterface {
         int high = this.size - 1;
         int mid;
 
-        while (low < high){
+        while (low <= high){
             mid = (high + low) / 2;
             if (value == this.array[mid]){
                 return mid;
             } else {
                 if (value < this.array[mid]) {
-                    high = mid;
+                    high = mid - 1;
                 } else  {
-                    low = mid;
+                    low = mid + 1;
                 }
             }
         }
@@ -101,6 +108,11 @@ public class MyArray implements ArrayInterface {
     @Override
     public int[] getArray() {
         return this.array;
+    }
+
+    @Override
+    public MyArray copy() {
+        return new MyArray(Arrays.copyOf(array, array.length), size);
     }
 
     public void setSorted(boolean sorted) {
