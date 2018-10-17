@@ -13,7 +13,7 @@ public class MyStack implements StackInterface {
     @Override
     public void push(int value) {
         if (isFull()) {
-            System.out.println("Overflow");
+            System.out.println("Stack overflow");
             return;
         } else {
             data[size++] = value;
@@ -23,6 +23,7 @@ public class MyStack implements StackInterface {
     @Override
     public int pop() {
         if (isEmpty()){
+            System.out.println("Stack is empty");
             return -1;
         } else  {
             return data[--size];
@@ -31,7 +32,7 @@ public class MyStack implements StackInterface {
 
     @Override
     public int peek() {
-        return 0;
+        return data[size - 1];
     }
 
     @Override
@@ -51,11 +52,18 @@ public class MyStack implements StackInterface {
 
     @Override
     public void display() {
-
+        System.out.println(this);
     }
 
     @Override
     public String toString() {
-        return super.toString();
+        StringBuilder str = new StringBuilder();
+        str.append("{");
+        for (int i = 0; i < size; i++) {
+            str.append(data[i]);
+            if (i != size - 1) str.append(", ");
+        }
+        str.append("}");
+        return str.toString();
     }
 }
