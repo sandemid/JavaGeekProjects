@@ -10,14 +10,84 @@ public class StacksQueueTest {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-//        testStack();
-//        stringReverse();
+        testStack();
+        stringReverse();
         testQueue();
+        testDequeue();
+    }
+
+    private static void testDequeue() {
+        int maxSize = 20;
+        MyDequeue dequeue = new MyDequeue(maxSize);
+        System.out.println("Создаем дек из 20 элементов");
+        System.out.println("Заполняем дек справа, затем слева:");
+        for (int i = 0; i < maxSize / 2 + 5; i++) {
+            dequeue.addRight(random.nextInt(50));
+        }
+        dequeue.display();
+        while (dequeue.getSize() != maxSize){
+            dequeue.addLeft(random.nextInt(50));
+        }
+        dequeue.display();
+        System.out.println("Добавляем еще 2 элемента в дек:");
+        dequeue.addRight(random.nextInt(50));
+        dequeue.addLeft(random.nextInt(50));
+        dequeue.display();
+        System.out.println("Удаляем элементы дека слева и справа:");
+        dequeue.removeLeft();
+        dequeue.removeLeft();
+        dequeue.removeLeft();
+        dequeue.display();
+        dequeue.removeRight();
+        dequeue.removeRight();
+        dequeue.removeRight();
+        dequeue.display();
+        dequeue.removeLeft();
+        dequeue.removeLeft();
+        dequeue.removeLeft();
+        dequeue.removeLeft();
+        dequeue.display();
+        System.out.println("Дозаполняем дек слева:");
+        while (dequeue.getSize() != maxSize){
+            dequeue.addLeft(random.nextInt(50));
+        }
+        dequeue.display();
+        System.out.println("Удаляем элементы дека справа:");
+        for (int i = 0; i < maxSize - 5 ; i++) {
+            dequeue.removeRight();
+        }
+        dequeue.display();
     }
 
     private static void testQueue() {
+        int maxSize = 20;
+        MyQueue queue = new MyQueue(maxSize);
 
-
+        System.out.println("Создаем очередь из 20 элементов");
+        System.out.println("Заполняем очередь:");
+        for (int i = 0; i < maxSize; i++) {
+            queue.addRight(random.nextInt(50));
+        }
+        queue.display();
+        System.out.println("Добавляем еще 2 элемента в очередь:");
+        queue.addRight(random.nextInt(50));
+        queue.addRight(random.nextInt(50));
+        queue.display();
+        System.out.println("Добавляем еще 1 элемент в очередь:");
+        queue.addRight(random.nextInt(50));
+        queue.display();
+        System.out.println("Выводим 5 первых элементов:");
+        System.out.println(queue.removeLeft());
+        System.out.println(queue.removeLeft());
+        System.out.println(queue.removeLeft());
+        System.out.println(queue.removeLeft());
+        System.out.println(queue.removeLeft());
+        queue.display();
+        System.out.println("Дозаполняем очередь до максимального размера:");
+        while (queue.getSize() != maxSize){
+            queue.addRight(random.nextInt(50));
+        }
+        queue.display();
     }
 
     private static void stringReverse() {
