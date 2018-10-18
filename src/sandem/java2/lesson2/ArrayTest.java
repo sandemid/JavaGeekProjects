@@ -48,21 +48,17 @@ public class ArrayTest {
 
 
         System.out.println("Перезаполняем массив случайно полностью");
-        for (int i = array.getSize(); i < maxSize; i++) {
-            array.add(random.nextInt(maxSize));
-        }
-
-        int[] a1 = new int[array.getSize()];
-        int[] a2 = new int[array.getSize()];
-        int[] a3 = new int[array.getSize()];
-
-        for (int i = 0; i < array.getSize(); i++) {
-            a1[i] = array.getElement(i);
-            a2[i] = array.getElement(i);
-            a3[i] = array.getElement(i);
-        }
-
         long start = System.nanoTime();
+        for (int i = array.getSize(); i < maxSize; i++) {
+            array.add(random.nextInt(maxSize * maxSize));
+        }
+        System.out.println("Заполнение массива мс = " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - start));
+        start = System.nanoTime();
+        MyArray a1 = array.copy();
+        MyArray a2 = array.copy();
+        MyArray a3 = array.copy();
+        System.out.println("Копирование 3 массивов = " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - start));
+        start = System.nanoTime();
         ArrayUtils.sortBubble(a1);
         System.out.println("Сортировка пузырьком мс = " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - start));
 
@@ -74,17 +70,17 @@ public class ArrayTest {
         ArrayUtils.sortInsert(a3);
         System.out.println("Сортировка вставкой мс = " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - start));
 
+//        int t = maxSize - 1;
         int t = random.nextInt(maxSize);
         ArrayUtils.sortInsert(array);
-//        array.display();
+
         start = System.nanoTime();
         System.out.println("Линейный поиск значения " + array.getIndex(array.getElement(t)) + " нанос = " + TimeUnit.NANOSECONDS.toNanos(System.nanoTime() - start));
         start = System.nanoTime();
         System.out.println("Бинарный поиск значения " + array.getIndexBinary(array.getElement(t)) + " нанос = " + TimeUnit.NANOSECONDS.toNanos(System.nanoTime() - start));
-
-//        for (int i = 0; i < a1.length; i++) {
-//            System.out.print(a1[i] + ", ");
-//        }
-
+//        a1.display();
+//        a2.display();
+//        a3.display();
+//        array.display();
     }
 }
