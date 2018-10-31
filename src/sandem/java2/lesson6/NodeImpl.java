@@ -1,13 +1,13 @@
 package sandem.java2.lesson6;
 
-public class Node implements NodeInterface{
+public class NodeImpl implements Node {
 
     private MyData value;
 
-    private NodeInterface leftChild;
-    private NodeInterface rightChild;
+    private Node leftChild;
+    private Node rightChild;
 
-    public Node(MyData value) {
+    public NodeImpl(MyData value) {
         this.value = value;
     }
 
@@ -27,27 +27,27 @@ public class Node implements NodeInterface{
     }
 
     @Override
-    public NodeInterface getLeftChild() {
+    public Node getLeftChild() {
         return leftChild;
     }
 
     @Override
-    public NodeInterface getRightChild() {
+    public Node getRightChild() {
         return rightChild;
     }
 
 
-    public void setLeftChild(NodeInterface leftChild) {
+    public void setLeftChild(Node leftChild) {
         this.leftChild = leftChild;
     }
 
 
-    public void setRightChild(NodeInterface rightChild) {
+    public void setRightChild(Node rightChild) {
         this.rightChild = rightChild;
     }
 
     @Override
-    public NodeInterface getChildByKey(int key) {
+    public Node getChildByKey(int key) {
         if ( isLeftChild(key) ) {
             return getLeftChild();
         }

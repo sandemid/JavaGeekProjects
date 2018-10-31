@@ -1,19 +1,19 @@
 package sandem.java2.lesson6;
 
-public interface NodeInterface {
+public interface Node {
 
     void setData(MyData value);
     MyData getData();
 
     int getKey();
 
-    NodeInterface getLeftChild();
-    NodeInterface getRightChild();
+    Node getLeftChild();
+    Node getRightChild();
 
-    void setRightChild(NodeInterface rightChild);
-    void setLeftChild(NodeInterface leftChild);
+    void setRightChild(Node rightChild);
+    void setLeftChild(Node leftChild);
 
-    NodeInterface getChildByKey(int key);
+    Node getChildByKey(int key);
 
     boolean isLeftChild(int key);
 
