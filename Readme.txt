@@ -20,3 +20,13 @@ src/ru.sandem/java2/lesson5 - Рекурсия
 src/ru.sandem/java2/lesson6 - Деревья
 src/ru.sandem/java2/lesson7 - Графы
 src/ru.sandem/java2/lesson8 - Хеш-таблицы
+
+src/ru.sandem/java3 - курс "Java уровень 2"
+src/ru.sandem/java3/lesson1 - ООП, интерфейсы
+src/ru.sandem/java3/lesson2 - Исключения
+src/ru.sandem/java3/lesson3 - Коллекции
+src/ru.sandem/java3/lesson4 - Графический интерфейс
+src/ru.sandem/java3/lesson5 - Многопоточность
+src/ru.sandem/java3/lesson6 - Работа с сетью
+src/ru.sandem/java3/lesson7 - Сетевой чат часть 1
+src/ru.sandem/java3/lesson8 - Сетевой чат часть 2
