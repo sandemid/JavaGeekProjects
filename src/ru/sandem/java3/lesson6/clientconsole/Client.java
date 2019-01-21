@@ -1,4 +1,4 @@
-package ru.sandem.java3.lesson6.ClientConsole;
+package ru.sandem.java3.lesson6.clientconsole;
 
 public class Client {
 

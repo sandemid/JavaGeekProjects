@@ -1,4 +1,4 @@
-package ru.sandem.java3.lesson6.ClientConsole;
+package ru.sandem.java3.lesson6.clientconsole;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,7 +36,7 @@ public class ClientConsole {
                     while (true) {
                         if (scannerServer.hasNext()) {
                             String message = scannerServer.nextLine();
-                            System.out.println("Server: " + message);
+                            System.out.println("server: " + message);
                             if ("end".equalsIgnoreCase(message)) {
                                 closing();
                             }

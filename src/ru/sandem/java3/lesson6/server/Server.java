@@ -1,4 +1,4 @@
-package ru.sandem.java3.lesson6.Server;
+package ru.sandem.java3.lesson6.server;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,7 +28,7 @@ public class Server {
                 public void run() {
                     while (true) {
                         String message = scanner.nextLine();
-                        System.out.println("Client: " + message);
+                        System.out.println("client: " + message);
                         if ("end".equalsIgnoreCase(message)) {
                             closing();
                         }

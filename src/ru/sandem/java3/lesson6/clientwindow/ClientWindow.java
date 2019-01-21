@@ -1,4 +1,4 @@
-package ru.sandem.java3.lesson6.ClientWindow;
+package ru.sandem.java3.lesson6.clientwindow;
 
 import javax.swing.*;
 import java.awt.*;
