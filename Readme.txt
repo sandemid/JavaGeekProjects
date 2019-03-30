@@ -30,3 +30,12 @@ src/ru.sandem/java3/lesson5 - Многопоточность
 src/ru.sandem/java3/lesson6 - Работа с сетью
 src/ru.sandem/java3/lesson7 - Сетевой чат часть 1
 src/ru.sandem/java3/lesson8 - Сетевой чат часть 2
+
+src/ru.sandem/java4 - курс "Java уровень 3"
+src/ru.sandem/java4/lesson1 - Обобщения
+src/ru.sandem/java4/lesson2 - Работа с БД
+src/ru.sandem/java4/lesson3 - Ввод-вывод
+src/ru.sandem/java4/lesson4 - Многопоточность ч. 1
+src/ru.sandem/java4/lesson5 - Многопоточность ч. 2
+src/ru.sandem/java4/lesson6 - Средства разработки
+src/ru.sandem/java4/lesson7 - Reflection API и аннотации
