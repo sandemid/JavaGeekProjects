@@ -7,15 +7,9 @@ public class TestThreads {
 
     public static void main(String[] args) {
         TestThreads t = new TestThreads();
-        Thread t1 = new Thread(() -> {
-            t.printA();
-        });
-        Thread t2 = new Thread(() -> {
-            t.printB();
-        });
-        Thread t3 = new Thread(() -> {
-            t.printC();
-        });
+        Thread t1 = new Thread(t::printA);
+        Thread t2 = new Thread(t::printB);
+        Thread t3 = new Thread(t::printC);
         t1.start();
         t2.start();
         t3.start();

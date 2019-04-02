@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Server {
     private static final String MSG_END = "end session";
@@ -66,22 +68,20 @@ public class Server {
                 socket = serverSocket.accept();
                 System.out.println("Client connected.");
                 ClientHandler client = new ClientHandler(socket, this);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        new Thread(client).start();
-                        try {
+                ExecutorService service = Executors.newCachedThreadPool();
+                service.submit(new Thread(() -> {
+                    new Thread(client).start();
+                    try {
                         Thread.sleep(WAITING_TIMEOUT);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        if (!client.isAuthOK()  && !client.isIsKilled()) {
-                            newMessageFromClient(MSG_END, client);
-                            client.killClient();
-                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                }).start();
-
+                    if (!client.isAuthOK()  && !client.isIsKilled()) {
+                        newMessageFromClient(MSG_END, client);
+                        client.killClient();
+                    }
+                }));
+                service.shutdown();
             }
         } catch (IOException e) {
             e.printStackTrace();
