@@ -1,4 +1,4 @@
-package ru.sandem.java4.lesson3.client;
+package ru.sandem.java4.lesson4.client;
 
 import javax.swing.*;
 import java.io.*;

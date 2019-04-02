@@ -1,11 +1,8 @@
 package ru.sandem.java4.lesson3.client;
 
-import javax.management.DescriptorAccess;
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 import java.awt.*;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
@@ -27,7 +24,6 @@ public class ClientWindow extends JFrame {
     private JTextField clientMsgElement;
     private JTextArea serverMsgElement;
     private JPanel authPanel;
-    private FileAndPrintHandler fileAndPrint;
 
     final String serverHost;
     final int serverPort;
@@ -37,15 +33,37 @@ public class ClientWindow extends JFrame {
     DataInputStream in;
     DataOutputStream out;
 
+    private File f;
+    private FileReader fileReader;
+    private BufferedReader bufferedReader;
+    private FileWriter fileWriter;
+    private BufferedWriter bufferedWriter;
+    private ArrayList<String> log;
+
     public ClientWindow(String host, int port) {
         serverHost = host;
         serverPort = port;
-        fileAndPrint = new FileAndPrintHandler(fileName);
 
         initConnection();
         initServerListner();
         initGUI();
-//        initLogFile();
+        initLogFile();
+    }
+
+    private void initLogFile() {
+        try {
+            f = new File(fileName);
+            f.createNewFile();
+            fileWriter = new FileWriter(fileName, true);
+            bufferedWriter = new BufferedWriter(fileWriter);
+            fileReader = new FileReader(fileName);
+            bufferedReader = new BufferedReader(fileReader);
+            log = new ArrayList<>();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initConnection() {
@@ -91,7 +109,6 @@ public class ClientWindow extends JFrame {
         serverMsgElement = new JTextArea();
         serverMsgElement.setEditable(false);
         serverMsgElement.setLineWrap(true);
-        fileAndPrint.setTextArea(serverMsgElement);
         //автопрокрутка текстовой области
         DefaultCaret caret = (DefaultCaret) serverMsgElement.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
@@ -176,7 +193,8 @@ public class ClientWindow extends JFrame {
                     in.close();
                     socket.close();
                     isClosed = true;
-                    fileAndPrint.shutdown();
+                    bufferedWriter.close();
+                    fileWriter.close();
                 } catch (IOException exc) {
                     System.err.println(exc.getMessage());
                     exc.printStackTrace();
@@ -208,19 +226,19 @@ public class ClientWindow extends JFrame {
                     }
                     if(message.equals(AUTH_OK)) {
                         authPanel.setVisible(false);
-                        fileAndPrint.printLog();
-                        fileAndPrint.printMessage(WELCOME_TO_CHAT + "\n");
+                        printLog();
+                        printMessage(WELCOME_TO_CHAT + "\n");
                     }
                     if(message.equals(AUTH_WRONG_PASS)) {
                         // says user about wrong password or username
-                        fileAndPrint.printMessage(MSG_WRONG_PASSWORD + "\n");
+                        printMessage(MSG_WRONG_PASSWORD + "\n");
                     }
                     else if(message.equals(AUTH_ALREADY_IN_USE)) {
                         // says, that username is already in use
-                        fileAndPrint.printMessage(MSG_USERNAME_ALREADY_IN_USE + "\n");
+                        printMessage(MSG_USERNAME_ALREADY_IN_USE + "\n");
                     }
                     else {
-                        fileAndPrint.printMessage(message + "\n");
+                        printMessage(message + "\n");
                     }
                 }
             } catch (Exception e) {
@@ -232,6 +250,24 @@ public class ClientWindow extends JFrame {
                 }
             }
         }).start();
+    }
+
+    private void printLog() throws Exception {
+        String s;
+        while ((s = bufferedReader.readLine()) != null) {
+            log.add(s);
+        }
+        for (int i = (log.size() <= 100) ? 0 : log.size() - 100; i < log.size(); i++) {
+            serverMsgElement.append(log.get(i) + "\n");
+        }
+        bufferedReader.close();
+        fileReader.close();
+    }
+
+    private void printMessage (String message) throws Exception {
+        serverMsgElement.append(message);
+        bufferedWriter.write(message);
+        bufferedWriter.flush();
     }
 
     private void sendMessage(String message) throws IOException {
