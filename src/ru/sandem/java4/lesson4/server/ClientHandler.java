@@ -1,5 +1,7 @@
 package ru.sandem.java4.lesson4.server;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.sandem.java4.lesson4.exceptions.AuthDoubleName;
 import ru.sandem.java4.lesson4.exceptions.AuthFailException;
 import ru.sandem.java4.lesson4.exceptions.AuthWrongPassword;
@@ -16,6 +18,8 @@ public class ClientHandler implements Runnable {
     private static final String CH_NICK_PREFIX = "CHNICK";
     private Socket socket;
     private Server server;
+
+    private static final Logger logger = LogManager.getLogger(ClientHandler.class.getName());
 
     private DataOutputStream out;
     private DataInputStream in;
@@ -45,9 +49,11 @@ public class ClientHandler implements Runnable {
             clientName = "client" + clientsCount;
 
             System.out.println("Client \"" + clientName + "\" ready!");
+            logger.info("Client \"" + clientName + "\" ready!");
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            logger.fatal(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -78,6 +84,7 @@ public class ClientHandler implements Runnable {
                     return;
                 } else {
                     e.printStackTrace();
+                    logger.fatal(e.getMessage());
                 }
             }
             if (isQuitCmd(message)) {
@@ -88,6 +95,7 @@ public class ClientHandler implements Runnable {
                     if (SQLHandler.changeNick(clientName, parsedMessage[1])) {
                         new Thread(new MessagesSender(clientName + " changed nick on " + parsedMessage[1], this, server)).start();
                         System.out.println(clientName + " changed nick on " + parsedMessage[1]);
+                        logger.info(clientName + " changed nick on " + parsedMessage[1]);
                         clientName = parsedMessage[1];
                         continue;
                     } else {
@@ -96,6 +104,7 @@ public class ClientHandler implements Runnable {
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    logger.fatal(e.getMessage());
                 }
             } else {
                 System.out.println(clientName + ": " + message);
@@ -113,6 +122,7 @@ public class ClientHandler implements Runnable {
             isKilled = true;
         } catch (IOException e) {
             e.printStackTrace();
+            logger.fatal(e.getMessage());
         }
         server.removeClient(this);
         Thread.currentThread().interrupt();
@@ -129,6 +139,7 @@ public class ClientHandler implements Runnable {
                     return;
                 } else {
                     e.printStackTrace();
+                    logger.fatal(e.getMessage());
                 }
             }
             if (isAuthOk(message)) {
@@ -137,6 +148,7 @@ public class ClientHandler implements Runnable {
                     out.writeUTF(AUTH_OK);
                 } catch (IOException e1) {
                     e1.printStackTrace();
+                    logger.fatal(e1.getMessage());
                 }
                 break;
             } else if (isQuitCmd(message)) {
@@ -178,6 +190,7 @@ public class ClientHandler implements Runnable {
             out.writeUTF(errorMessage);
         } catch (IOException e1) {
             e1.printStackTrace();
+            logger.fatal(e1.getMessage());
         }
         return false;
     }
