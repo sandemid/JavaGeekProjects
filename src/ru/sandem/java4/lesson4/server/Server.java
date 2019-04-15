@@ -126,6 +126,18 @@ public class Server {
 
         }
 
+        String[] parsedMessage = message.split("___",2);
+        if (parsedMessage[0].equalsIgnoreCase("CHATBOT!")) {
+            try {
+                client.getOut().writeUTF(parsedMessage[1]);
+                client.getOut().flush();
+                return;
+            } catch (IOException e) {
+                e.printStackTrace();
+                logger.error("IOException in newMessageFromClient");
+            }
+        }
+
         for (ChatFilter filter : filters) {
             message = filter.filter(message);
         }

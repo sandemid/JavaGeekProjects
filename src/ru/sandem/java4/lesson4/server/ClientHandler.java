@@ -16,6 +16,7 @@ public class ClientHandler implements Runnable {
 
     private static final String CMD_END = "end";
     private static final String CH_NICK_PREFIX = "CHNICK";
+    private static final String START_BOT_COMMAND = "бот";
     private Socket socket;
     private Server server;
 
@@ -80,7 +81,7 @@ public class ClientHandler implements Runnable {
             try {
                 message = in.readUTF();
             } catch (IOException e) {
-                if (isKilled){
+                if (isKilled) {
                     return;
                 } else {
                     e.printStackTrace();
@@ -91,7 +92,7 @@ public class ClientHandler implements Runnable {
                 killClient();
             } else if (isChangeNickCmd(message)) {
                 try {
-                    String[] parsedMessage = message.split("___",2);
+                    String[] parsedMessage = message.split("___", 2);
                     if (SQLHandler.changeNick(clientName, parsedMessage[1])) {
                         new Thread(new MessagesSender(clientName + " changed nick on " + parsedMessage[1], this, server)).start();
                         System.out.println(clientName + " changed nick on " + parsedMessage[1]);
@@ -106,6 +107,9 @@ public class ClientHandler implements Runnable {
                     e.printStackTrace();
                     logger.fatal(e.getMessage());
                 }
+            } else if(isBotCmd(message)) {
+                ChatBot.messageToChatBot(message, this, server);
+                continue;
             } else {
                 System.out.println(clientName + ": " + message);
             }
@@ -144,6 +148,7 @@ public class ClientHandler implements Runnable {
             }
             if (isAuthOk(message)) {
                 System.out.println(clientName + " auth ok and is ready for chat!");
+                logger.info(clientName + " auth ok and is ready for chat!");
                 try {
                     out.writeUTF(AUTH_OK);
                 } catch (IOException e1) {
@@ -164,6 +169,11 @@ public class ClientHandler implements Runnable {
     private boolean isChangeNickCmd(String message) {
         String[] parsedMessage = message.split("___",2);
         return CH_NICK_PREFIX.equals(parsedMessage[0]);
+    }
+
+    private boolean isBotCmd(String message) {
+        String[] parsedMessage = message.split(" ",2);
+        return START_BOT_COMMAND.equals(parsedMessage[0]);
     }
 
     private boolean isAuthOk(String message) {
