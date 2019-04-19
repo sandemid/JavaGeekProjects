@@ -18,7 +18,7 @@ public class TestingClass {
             System.out.println("Запуск теста с вызовом через имя класса");
             TestingClass.start("ru.sandem.java4.lesson7.ExampleTestOne");
         } catch (InvocationTargetException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException e) {
-            e.printStackTrace();
+            e.getCause().printStackTrace();
         }
     }
 

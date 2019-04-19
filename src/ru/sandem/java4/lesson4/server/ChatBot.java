@@ -29,13 +29,13 @@ public class ChatBot {
             String[] args = message.split(" ");
             String command = args[1].toLowerCase();
             String[] nArgs = null;
-            if (args.length <= 2) {
-                nArgs = new String[1];
-                nArgs[0] = "_";
-            } else {
-                nArgs = new String[args.length - 2];
-                System.arraycopy(args, 2, nArgs, 0, args.length - 2);
-            }
+            nArgs = new String[args.length - 2];
+            System.arraycopy(args, 2, nArgs, 0, args.length - 2);
+//            if (args.length <= 2) {
+//                nArgs = new String[1];
+//                nArgs[0] = "_";
+//            } else {
+//            }
             commandHandler.setClientHandler(clientHandler);
             commandHandler.setServer(server);
 
@@ -50,7 +50,7 @@ public class ChatBot {
             } else if (nArgs.length > com.maxArgs()) {
                 //что-то если аргументов больше чем нужно
             }
-            m.invoke(commandHandler, nArgs[0]);
+            m.invoke(commandHandler, new Object[]{nArgs});
         } catch (ArrayIndexOutOfBoundsException e) {
             //Вывод списка команд или какого-либо сообщения, в случае если просто написать "Бот"
             System.out.println("bot");

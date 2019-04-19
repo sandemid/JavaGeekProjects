@@ -8,8 +8,12 @@ public class ClassForTest {
         this.name = name;
     }
 
-    private boolean checkInteger(int i) {
-        return  i > 20;
+    private boolean checkStringsLength(String... strings) {
+        int sum = 0;
+        for (int i = 0; i < strings.length; i++) {
+            sum += strings[i].length();
+        }
+        return  sum > 30;
     }
 
     private int getFactorial(int i) throws IllegalArgumentException {

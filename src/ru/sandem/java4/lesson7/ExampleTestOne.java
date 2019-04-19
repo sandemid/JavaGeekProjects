@@ -8,18 +8,21 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class ExampleTestOne {
+class ExampleTestOne {
 
     private static int successTest;
     private static int failedTest;
 
-    @Test(priority = 10, methodName = "checkInteger", classForTest = ClassForTest.class)
+    @Test(priority = 10, methodName = "checkStringsLength", classForTest = ClassForTest.class)
     private static boolean checkIntegerTest1() throws NoSuchMethodException, RuntimeException, InvocationTargetException, IllegalAccessException, InstantiationException {
-        Constructor constructor = ExampleTestOne.class.getDeclaredMethod("checkIntegerTest1").getAnnotation(Test.class).classForTest().getConstructor(String.class);
+        Constructor constructor = ExampleTestOne.class.getDeclaredMethod("checkIntegerTest1")
+                .getAnnotation(Test.class).classForTest().getConstructor(String.class);
         ClassForTest objectForTest = (ClassForTest) constructor.newInstance("");
-        Method method = objectForTest.getClass().getDeclaredMethod(ExampleTestOne.class.getDeclaredMethod("checkIntegerTest1").getAnnotation(Test.class).methodName(), int.class);
+        Method method = objectForTest.getClass().getDeclaredMethod(ExampleTestOne.class
+                .getDeclaredMethod("checkIntegerTest1").getAnnotation(Test.class).methodName(),String[].class);
+        String[] strings = {"qwertyu", "asdfghjkl", "zxcvbnm", "pokiujhytgfreds sefda", "rfvedcwsxyhnujm", "sdflsdkf"};
         method.setAccessible(true);
-        if (!(Boolean)method.invoke(objectForTest, 5)) {
+        if ((Boolean)method.invoke(objectForTest, new Object[]{strings})) {
             successTest++;
             return true;
         } else {
@@ -28,13 +31,16 @@ public class ExampleTestOne {
         }
     }
 
-    @Test(priority = 6, methodName = "checkInteger", classForTest = ClassForTest.class)
+    @Test(priority = 6, methodName = "checkStringsLength", classForTest = ClassForTest.class)
     private static boolean checkIntegerTest2() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        Constructor constructor = ExampleTestOne.class.getDeclaredMethod("checkIntegerTest2").getAnnotation(Test.class).classForTest().getConstructor(String.class);
+        Constructor constructor = ExampleTestOne.class.getDeclaredMethod("checkIntegerTest2")
+                .getAnnotation(Test.class).classForTest().getConstructor(String.class);
         ClassForTest objectForTest = (ClassForTest) constructor.newInstance("");
-        Method method = objectForTest.getClass().getDeclaredMethod(ExampleTestOne.class.getDeclaredMethod("checkIntegerTest2").getAnnotation(Test.class).methodName(), int.class);
+        Method method = objectForTest.getClass().getDeclaredMethod(ExampleTestOne.class
+                .getDeclaredMethod("checkIntegerTest2").getAnnotation(Test.class).methodName(), String[].class);
+        String[] strings = {"qwertyu", "asdfghjkl", "zxcvbnm", "pokiujhytgfreds sefda", "rfvedcwsxyhnujm", "sdflsdkf"};
         method.setAccessible(true);
-        if (!(Boolean)method.invoke(objectForTest, 21)) {
+        if (!(Boolean)method.invoke(objectForTest, new Object[]{strings})) {
             successTest++;
             return true;
         } else {
@@ -45,7 +51,8 @@ public class ExampleTestOne {
 
     @Test(priority = 2, methodName = "getFactorial", classForTest = ClassForTest.class)
     private static boolean getFactorialTest1() throws NoSuchMethodException {
-        Constructor constructor = ExampleTestOne.class.getDeclaredMethod("getFactorialTest1").getAnnotation(Test.class).classForTest().getConstructor(String.class);
+        Constructor constructor = ExampleTestOne.class.getDeclaredMethod("getFactorialTest1")
+                .getAnnotation(Test.class).classForTest().getConstructor(String.class);
         ClassForTest objectForTest = null;
         try {
             objectForTest = (ClassForTest) constructor.newInstance("");
@@ -53,7 +60,8 @@ public class ExampleTestOne {
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
-        Method method = objectForTest.getClass().getDeclaredMethod(ExampleTestOne.class.getDeclaredMethod("getFactorialTest1").getAnnotation(Test.class).methodName(), int.class);
+        Method method = objectForTest.getClass().getDeclaredMethod(ExampleTestOne.class.getDeclaredMethod("getFactorialTest1")
+                .getAnnotation(Test.class).methodName(), int.class);
         method.setAccessible(true);
         try {
             method.invoke(objectForTest, 21);
@@ -71,7 +79,8 @@ public class ExampleTestOne {
 
     @Test(priority = 0, methodName = "getFactorial", classForTest = ClassForTest.class)
     private static boolean getFactorialTest2() throws NoSuchMethodException {
-        Constructor constructor = ExampleTestOne.class.getDeclaredMethod("getFactorialTest2").getAnnotation(Test.class).classForTest().getConstructor(String.class);
+        Constructor constructor = ExampleTestOne.class.getDeclaredMethod("getFactorialTest2").getAnnotation(Test.class)
+                .classForTest().getConstructor(String.class);
         ClassForTest objectForTest = null;
         try {
             objectForTest = (ClassForTest) constructor.newInstance("");
@@ -79,7 +88,8 @@ public class ExampleTestOne {
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
-        Method method = objectForTest.getClass().getDeclaredMethod(ExampleTestOne.class.getDeclaredMethod("getFactorialTest2").getAnnotation(Test.class).methodName(), int.class);
+        Method method = objectForTest.getClass().getDeclaredMethod(ExampleTestOne.class.getDeclaredMethod("getFactorialTest2")
+                .getAnnotation(Test.class).methodName(), int.class);
         method.setAccessible(true);
         try {
             method.invoke(objectForTest, -1);

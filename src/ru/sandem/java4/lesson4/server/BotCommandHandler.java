@@ -11,20 +11,20 @@ public class BotCommandHandler {
 
     @BotCommand(name = "привет", args = "", desc = "Будь культурным, поздоровайся",
             aliases = {"здаров"})
-    public void hello(String args) {
+    public void hello(String[] args) {
         //Какой-то функционал, на Ваше усмотрение.
-        System.out.println(args);
+//        System.out.println(args);
         new Thread(new MessagesSender("CHATBOT!___Привет, друг!", clientHandler, server)).start();
     }
 
     @BotCommand(name = "пока", args = "", desc = "", aliases = {"удачи"})
-    public void bye(String args) {
+    public void bye(String[] args) {
         // Функционал
         new Thread(new MessagesSender("CHATBOT!___Пока, друг!", clientHandler, server)).start();
     }
 
     @BotCommand(name = "помощь", args = "", desc = "Выводит список команд", aliases = {"help", "команды"})
-    public void help(String args)
+    public void help(String[] args)
     {
         StringBuilder sb = new StringBuilder("Список команд: \n");
         for (Method m : this.getClass().getDeclaredMethods())
@@ -48,9 +48,9 @@ public class BotCommandHandler {
     }
 
     @BotCommand(name = "посчитай", args = "целое число", desc = "Посчитать квадрат числа", aliases = {"калькулятор"})
-    public void calc(String args) {
-        new Thread(new MessagesSender("CHATBOT!___Квадрат числа " + Integer.valueOf(args) + " = "
-                + Integer.valueOf(args) * Integer.valueOf(args), clientHandler, server)).start();
+    public void calc(String[] args) {
+        new Thread(new MessagesSender("CHATBOT!___Квадрат числа " + Integer.valueOf(args[0]) + " = "
+                + Integer.valueOf(args[0]) * Integer.valueOf(args[0]), clientHandler, server)).start();
     }
 
     public void setClientHandler(ClientHandler clientHandler) {
