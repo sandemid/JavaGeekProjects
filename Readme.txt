@@ -37,5 +37,5 @@ src/ru.sandem/java4/lesson2 - Работа с БД
 src/ru.sandem/java4/lesson3 - Ввод-вывод
 src/ru.sandem/java4/lesson4 - Многопоточность ч. 1
 src/ru.sandem/java4/lesson5 - Многопоточность ч. 2
-src/ru.sandem/java4/lesson6 - Средства разработки
+src/ru.sandem/java4/lesson6 - Логгирование, тесты JUnit
 src/ru.sandem/java4/lesson7 - Reflection API и аннотации
